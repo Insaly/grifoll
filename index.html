@@ -2,27 +2,139 @@
 <html lang="ca">
 <head>
   <meta charset="UTF-8">
-  <title>Cercador de codi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cercador de Codi</title>
+  <style>
+    /* Estil general */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+      margin: 0;
+    }
+
+    /* Targeta principal */
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+      width: 350px;
+      text-align: center;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      color: #4e54c8;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 2px solid #ddd;
+      outline: none;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #4e54c8;
+      box-shadow: 0 0 8px rgba(78, 84, 200, 0.3);
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background-color: #4e54c8;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #6a6ff2;
+      transform: translateY(-2px);
+    }
+
+    #resultat {
+      margin-top: 25px;
+      font-size: 18px;
+      font-weight: 500;
+      color: #333;
+      min-height: 24px;
+    }
+
+    .no-trobat {
+      color: #e74c3c;
+    }
+
+    .trobat {
+      color: #2ecc71;
+    }
+  </style>
 </head>
 <body>
-  <h2>Introdueix el teu codi:</h2>
-  <input id="codi" type="text" placeholder="Ex: ABC123">
-  <button onclick="mostrarText()">Enviar</button>
-
-  <p id="resultat"></p>
+  <div class="card">
+    <h2>🔍 Cercador de Codi</h2>
+    <input id="codi" type="text" placeholder="Escriu el teu codi (ex: ABC123)">
+    <button onclick="mostrarText()">Cerca</button>
+    <p id="resultat"></p>
+  </div>
 
   <script>
+    // Diccionari de codis i textos
     const textos = {
-      "ABC123": "Benvingut al grup A!",
+      "ABC123": "🎉 Benvingut al grup A!",
       "XYZ789": "Tens accés a la secció B.",
-      "UAB2025": "Hola Lluc! Ets part del projecte."
+      "UAB2025": "Hola Lluc! Ets part del projecte.",
+      "FESTA01": "🎊 Has desbloquejat una sorpresa especial!"
     };
 
+    // Funció principal
     function mostrarText() {
-      const codi = document.getElementById("codi").value.trim().toUpperCase();
-      const resultat = textos[codi] || "Codi no trobat 😕";
-      document.getElementById("resultat").innerText = resultat;
+      const input = document.getElementById("codi");
+      const codi = input.value.trim().toUpperCase();
+      const resultat = document.getElementById("resultat");
+
+      if (codi === "") {
+        resultat.textContent = "Introdueix un codi per començar.";
+        resultat.className = "no-trobat";
+        return;
+      }
+
+      if (textos[codi]) {
+        resultat.textContent = textos[codi];
+        resultat.className = "trobat";
+      } else {
+        resultat.textContent = "Codi no trobat 😕";
+        resultat.className = "no-trobat";
+      }
+
+      // Animació suau al mostrar el resultat
+      resultat.style.opacity = 0;
+      setTimeout(() => { resultat.style.opacity = 1; }, 100);
     }
+
+    // Permet prémer "Enter"
+    document.getElementById("codi").addEventListener("keypress", e => {
+      if (e.key === "Enter") mostrarText();
+    });
   </script>
 </body>
 </html>
