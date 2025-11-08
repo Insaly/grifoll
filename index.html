@@ -91,8 +91,8 @@
 </head>
 <body>
   <div class="card">
-    <h2>🔍 Cercador de Codi</h2>
-    <input id="codi" type="text" placeholder="Escriu el teu codi (ex: ABC123)">
+    <h2>Inserex la contrasenya</h2>
+    <input id="codi" type="text" placeholder="Escriu el codi aquí">
     <button onclick="mostrarText()">Cerca</button>
     <p id="resultat"></p>
   </div>
@@ -122,7 +122,7 @@
         resultat.textContent = textos[codi];
         resultat.className = "trobat";
       } else {
-        resultat.textContent = "Codi no trobat 😕";
+        resultat.textContent = "Codi no trobat";
         resultat.className = "no-trobat";
       }
 
