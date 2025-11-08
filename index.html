@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>Cercador de codi</title>
+</head>
+<body>
+  <h2>Introdueix el teu codi:</h2>
+  <input id="codi" type="text" placeholder="Ex: ABC123">
+  <button onclick="mostrarText()">Enviar</button>
+
+  <p id="resultat"></p>
+
+  <script>
+    const textos = {
+      "ABC123": "Benvingut al grup A!",
+      "XYZ789": "Tens accés a la secció B.",
+      "UAB2025": "Hola Lluc! Ets part del projecte."
+    };
+
+    function mostrarText() {
+      const codi = document.getElementById("codi").value.trim().toUpperCase();
+      const resultat = textos[codi] || "Codi no trobat 😕";
+      document.getElementById("resultat").innerText = resultat;
+    }
+  </script>
+</body>
+</html>
