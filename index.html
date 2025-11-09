@@ -23,6 +23,9 @@
       padding: 40px;
       width: 350px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       animation: fadeIn 0.8s ease;
     }
 
@@ -45,6 +48,7 @@
       outline: none;
       font-size: 16px;
       transition: 0.3s;
+      margin-bottom: 15px;
     }
 
     input:focus {
@@ -53,7 +57,6 @@
     }
 
     button {
-      margin-top: 15px;
       width: 100%;
       padding: 12px;
       border: none;
@@ -71,7 +74,6 @@
       transform: translateY(-2px);
     }
 
-    /* Missatge de confirmació o error */
     #missatge-correcte, #missatge-incorrecte {
       display: none;
       font-size: 20px;
@@ -89,12 +91,13 @@
     }
 
     #resultat {
-      margin-top: 20px;
+      margin-top: 10px;
       font-size: 18px;
       font-weight: 500;
       color: #333;
       min-height: 24px;
       transition: opacity 0.3s;
+      white-space: pre-line;
     }
   </style>
 </head>
@@ -104,14 +107,14 @@
     <input id="codi" type="text" placeholder="Escriu el codi aquí">
     <button id="boto" onclick="mostrarText()">Cerca</button>
     <p id="missatge-correcte">CONTRASENYA CORRECTA</p>
-    <p id="missatge-incorrecte">CONTRASENYA INCORRECTA</p>
     <p id="resultat"></p>
+    <p id="missatge-incorrecte">CONTRASENYA INCORRECTA</p>
   </div>
 
   <script>
     // Diccionari de codis i textos
     const textos = {
-      "PMETR": "Així que heu aconseguit superar la meva prova, eh? Veig que teniu prou nivell per a ajudar-me."
+      "PMETR": "Així que heu aconseguit superar la meva prova, eh? Ja veig que teniu prou nivell per a ajudar-me. Ara mateix no us en puc dir res més, però seguirem en contacte.\n\n- Dr. "
     };
 
     function mostrarText() {
@@ -140,15 +143,15 @@
       if (textos[codi]) {
         // ✅ Codi correcte
         resultat.textContent = textos[codi];
-        resultat.className = "trobat";
         resultat.style.display = "block";
         missatgeCorrecte.style.display = "block";
         missatgeIncorrecte.style.display = "none";
         boto.style.display = "none";
         input.style.display = "none";
         titol.style.display = "none";
+        setTimeout(() => resultat.style.opacity = 1, 100);
       } else {
-        // ❌ Codi incorrecte → només mostra el missatge vermell
+        // ❌ Codi incorrecte
         resultat.textContent = "";
         resultat.style.display = "none";
         missatgeCorrecte.style.display = "none";
