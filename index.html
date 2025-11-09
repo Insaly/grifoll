@@ -96,14 +96,6 @@
       min-height: 24px;
       transition: opacity 0.3s;
     }
-
-    .no-trobat {
-      color: #e74c3c;
-    }
-
-    .trobat {
-      color: #2ecc71;
-    }
   </style>
 </head>
 <body>
@@ -135,9 +127,12 @@
 
       if (codi === "") {
         resultat.textContent = "Introdueix un codi per començar.";
-        resultat.className = "no-trobat";
+        resultat.style.display = "block";
         missatgeCorrecte.style.display = "none";
         missatgeIncorrecte.style.display = "none";
+        boto.style.display = "block";
+        input.style.display = "block";
+        titol.style.display = "block";
         setTimeout(() => resultat.style.opacity = 1, 100);
         return;
       }
@@ -146,23 +141,22 @@
         // ✅ Codi correcte
         resultat.textContent = textos[codi];
         resultat.className = "trobat";
+        resultat.style.display = "block";
         missatgeCorrecte.style.display = "block";
         missatgeIncorrecte.style.display = "none";
         boto.style.display = "none";
         input.style.display = "none";
         titol.style.display = "none";
       } else {
-        // ❌ Codi incorrecte
-        resultat.textContent = "Codi no trobat";
-        resultat.className = "no-trobat";
+        // ❌ Codi incorrecte → només mostra el missatge vermell
+        resultat.textContent = "";
+        resultat.style.display = "none";
         missatgeCorrecte.style.display = "none";
         missatgeIncorrecte.style.display = "block";
         boto.style.display = "block";
         input.style.display = "block";
         titol.style.display = "block";
       }
-
-      setTimeout(() => resultat.style.opacity = 1, 100);
     }
 
     // Permet prémer "Enter"
