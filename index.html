@@ -34,6 +34,7 @@
     h2 {
       color: #4e54c8;
       margin-bottom: 20px;
+      transition: opacity 0.5s;
     }
 
     input {
@@ -70,13 +71,21 @@
       transform: translateY(-2px);
     }
 
-    #missatge-correcte {
+    /* Missatge de confirmació o error */
+    #missatge-correcte, #missatge-incorrecte {
       display: none;
       font-size: 20px;
       font-weight: 700;
-      color: #2ecc71;
       margin-top: 15px;
       animation: fadeIn 0.6s ease;
+    }
+
+    #missatge-correcte {
+      color: #2ecc71; /* Verd */
+    }
+
+    #missatge-incorrecte {
+      color: #e74c3c; /* Vermell */
     }
 
     #resultat {
@@ -99,10 +108,11 @@
 </head>
 <body>
   <div class="card">
-    <h2>Inseriu la contrasenya:</h2>
+    <h2 id="titol">Inseriu la contrasenya:</h2>
     <input id="codi" type="text" placeholder="Escriu el codi aquí">
     <button id="boto" onclick="mostrarText()">Cerca</button>
     <p id="missatge-correcte">CONTRASENYA CORRECTA</p>
+    <p id="missatge-incorrecte">CONTRASENYA INCORRECTA</p>
     <p id="resultat"></p>
   </div>
 
@@ -112,35 +122,44 @@
       "PMETR": "Així que heu aconseguit superar la meva prova, eh? Veig que teniu prou nivell!"
     };
 
-    // Funció principal
     function mostrarText() {
       const input = document.getElementById("codi");
       const codi = input.value.trim().toUpperCase();
       const resultat = document.getElementById("resultat");
       const boto = document.getElementById("boto");
+      const titol = document.getElementById("titol");
       const missatgeCorrecte = document.getElementById("missatge-correcte");
+      const missatgeIncorrecte = document.getElementById("missatge-incorrecte");
 
       resultat.style.opacity = 0;
 
       if (codi === "") {
         resultat.textContent = "Introdueix un codi per començar.";
         resultat.className = "no-trobat";
-        boto.style.display = "block";
         missatgeCorrecte.style.display = "none";
+        missatgeIncorrecte.style.display = "none";
         setTimeout(() => resultat.style.opacity = 1, 100);
         return;
       }
 
       if (textos[codi]) {
+        // ✅ Codi correcte
         resultat.textContent = textos[codi];
         resultat.className = "trobat";
-        boto.style.display = "none";
         missatgeCorrecte.style.display = "block";
+        missatgeIncorrecte.style.display = "none";
+        boto.style.display = "none";
+        input.style.display = "none";
+        titol.style.display = "none";
       } else {
+        // ❌ Codi incorrecte
         resultat.textContent = "Codi no trobat";
         resultat.className = "no-trobat";
-        boto.style.display = "block";
         missatgeCorrecte.style.display = "none";
+        missatgeIncorrecte.style.display = "block";
+        boto.style.display = "block";
+        input.style.display = "block";
+        titol.style.display = "block";
       }
 
       setTimeout(() => resultat.style.opacity = 1, 100);
